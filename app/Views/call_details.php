@@ -3,7 +3,7 @@
     <div class="card">
     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h5 class="text-white" style="margin-left: 10px;">Follow-up Details</h5>
+                <h5 class="text-white" style="margin-left: 10px;">Follow-up Detailssss</h5>
                 <div class="multisteps-form__progress">
                 </div>
             </div>
