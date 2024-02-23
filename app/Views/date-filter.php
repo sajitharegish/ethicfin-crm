@@ -915,6 +915,7 @@
     }
 </script> -->
 
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
 
 <script>
@@ -922,9 +923,36 @@
         /* Get table element */
         var table = document.getElementById("tablenew");
 
-        /* Remove the "Operations" column */
-        table.querySelectorAll('.operations').forEach(function(column) {
-            column.remove();
+        /* Remove the header of the "Operations" column */
+        var headerIndex = -1;
+        var headers = table.querySelectorAll('thead th');
+        headers.forEach(function(header, index) {
+            if (header.textContent.trim() === 'Operations') {
+                headerIndex = index;
+            }
+        });
+        if (headerIndex !== -1) {
+            headers[headerIndex].remove();
+        }
+
+        /* Remove the "Operations" column from all rows */
+        var rows = table.querySelectorAll('tbody tr');
+        rows.forEach(function(row) {
+            var cells = row.querySelectorAll('td');
+            if (cells.length > headerIndex && headerIndex !== -1) {
+                cells[headerIndex].remove();
+            }
+
+            /* Add a line break before printing the Gmail ID */
+            var emailCell = row.querySelector('td:nth-child(4)');
+            if (emailCell) {
+                var emailText = emailCell.textContent.trim();
+                if (emailText.includes('@gmail.com')) {
+                    // Replace '@gmail.com' with '\n@gmail.com'
+                    emailText = emailText.replace('@gmail.com', '\n@gmail.com');
+                    emailCell.textContent = emailText;
+                }
+            }
         });
 
         /* Convert table to workbook */
@@ -932,6 +960,7 @@
 
         /* Get the first sheet of the workbook */
         var ws = wb.Sheets[wb.SheetNames[0]];
+       
 
         /* Define date format */
         var dateFormat = 'dd-mmm-yyyy';
@@ -949,6 +978,12 @@
         XLSX.writeFile(wb, "table_data.xlsx");
     }
 </script>
+
+
+
+
+
+
 
 
 
